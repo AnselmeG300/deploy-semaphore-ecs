@@ -1,0 +1,72 @@
+ [
+    {   
+        "portMappings": [
+            {
+                "containerPort": 3000,
+                "protocol": "tcp"
+            }
+        ],
+        "essential": true,
+        "priviliged": true,
+        "user": "root",
+        "name": "semaphore-front",
+        "image": "semaphoreui/semaphore:v2.9.37",
+        "secrets": [
+            {
+              "name" : "SEMAPHORE_ADMIN_NAME",
+              "valueFrom": "arn:aws:secretsmanager:eu-west-1:312601499315:secret:semaphore_secrets-pnbYnr:semaphore_connexion_login_front::"
+            },
+            {
+                "name": "SEMAPHORE_ADMIN_PASSWORD",
+                "valueFrom": "arn:aws:secretsmanager:eu-west-1:312601499315:secret:semaphore_secrets-pnbYnr:semaphore_connexion_password::"
+            },
+            {
+                "name": "SEMAPHORE_DB_USER",
+                "valueFrom": "arn:aws:secretsmanager:eu-west-1:312601499315:secret:semaphore_secrets-pnbYnr:db_user_semaphore::"
+            },
+            {
+                "name": "SEMAPHORE_DB_PASS",
+                "valueFrom": "arn:aws:secretsmanager:eu-west-1:312601499315:secret:semaphore_secrets-pnbYnr:db_password_semaphore::"
+            }
+        ],
+        "environment": [
+            {   
+                "name": "SEMAPHORE_DB_HOST",
+                "value": "semaphore-db.mysql-semaphore"
+            },
+            {   
+                "name": "SEMAPHORE_DB_PORT",
+                "value": "3306"
+            },
+            {   
+                "name": "SEMAPHORE_DB_DIALECT",
+                "value": "mysql"
+            },
+            {   
+                "name": "SEMAPHORE_DB",
+                "value": "semaphore"
+            },
+            {   
+                "name": "SEMAPHORE_PLAYBOOK_PATH",
+                "value": "/tmp/semaphore/"
+            },
+            {   
+                "name": "SEMAPHORE_ADMIN_EMAIL",
+                "value": "admin@localhost"
+            },
+            {   
+                "name": "SEMAPHORE_ADMIN",
+                "value": "admin"
+            },
+            {   
+                "name": "SEMAPHORE_ACCESS_KEY_ENCRYPTION",
+                "value": "sQ+W601W24VD1xSHjiTJFuicqAg7RZ2JgqlmvpfEVQU="
+            },
+            {   
+                "name": "ECS_RESERVED_MEMORY",
+                "value": "100"
+            }
+        ]
+    }
+]
+

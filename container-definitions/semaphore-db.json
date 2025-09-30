@@ -1,0 +1,41 @@
+[
+    {  
+        "portMappings": [
+            {
+                "containerPort": 3306,
+                "protocol": "tcp"
+            }
+        ],
+        "mountPoints": [
+            {    
+                "containerPath": "/var/lib/mysql",
+                "sourceVolume": "ebs-semaphore-volume",
+                "readOnly": false
+            }
+        ],
+        "essential": true,
+        "name": "semaphore-db",
+        "image": "mysql:8.0",
+        "secrets": [
+            {
+                "name": "MYSQL_USER",
+                "valueFrom": "arn:aws:secretsmanager:eu-west-1:312601499315:secret:semaphore_secrets-pnbYnr:db_user_semaphore::"
+            },
+            {
+                "name": "MYSQL_PASSWORD",
+                "valueFrom": "arn:aws:secretsmanager:eu-west-1:312601499315:secret:semaphore_secrets-pnbYnr:db_password_semaphore::"
+            },
+            {
+                "name": "MYSQL_ROOT_PASSWORD",
+                "valueFrom": "arn:aws:secretsmanager:eu-west-1:312601499315:secret:semaphore_secrets-pnbYnr:db_root_password_semaphore::"
+            }
+        ],
+        "environment": [
+            {   
+                "name": "MYSQL_DATABASE",
+                "value": "semaphore"
+            }
+        ]
+    }
+]
+
